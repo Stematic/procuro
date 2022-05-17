@@ -4,12 +4,20 @@ declare(strict_types=1);
 
 namespace App\Concerns;
 
+use function array_key_exists;
+use function preg_replace_callback;
+use function filter_var;
+
+use const FILTER_VALIDATE_BOOL;
+
 trait ReplacesConfigVariables
 {
     /**
      * Evaluates conditionals based on setting values.
      * If the setting evaluates to true, the inner content is retained
      * else, the inner content is discarded (setting off).
+     *
+     * @param array<string, mixed> $data
      */
     protected function replaceConditionals(string $contents, array $data): string
     {
@@ -22,12 +30,14 @@ trait ReplacesConfigVariables
                     ? $contents
                     : '';
             },
-            $contents
+            $contents,
         );
     }
 
     /**
      * Validates a given key as a conditional.
+     *
+     * @param array<string, mixed> $data
      */
     protected function validateCondition(string $key, array $data): bool
     {
@@ -38,6 +48,8 @@ trait ReplacesConfigVariables
 
     /**
      * Replaces variables within the configuration stub file with the values from settings.
+     *
+     * @param array<string, mixed> $data
      */
     protected function replaceVariables(string $contents, array $data): string
     {
@@ -50,7 +62,7 @@ trait ReplacesConfigVariables
                     ? (string) $data[$key]
                     : $original;
             },
-            $contents
+            $contents,
         );
     }
 }

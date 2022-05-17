@@ -12,6 +12,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * @property-read int $id
+ *
  * @property string $name
  * @property string $hostname
  * @property string $config_path

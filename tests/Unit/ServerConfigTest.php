@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests\Unit;
 
 use App\Exceptions\InvalidStub;
@@ -10,6 +12,9 @@ use App\Services\ServerConfigGenerator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Carbon;
 use Tests\TestCase;
+
+use function file_get_contents;
+use function assert;
 
 class ServerConfigTest extends TestCase
 {

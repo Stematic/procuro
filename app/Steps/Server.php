@@ -8,6 +8,8 @@ use Closure;
 use App\Models\Server as ServerModel;
 use App\Services\ServerConfigResult;
 
+use function assert;
+
 abstract class Server extends Step
 {
     /**

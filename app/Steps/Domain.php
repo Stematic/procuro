@@ -8,6 +8,8 @@ use Closure;
 use App\Models\Domain as DomainModel;
 use App\Services\ServerConfigResult;
 
+use function assert;
+
 abstract class Domain extends Step
 {
     /**

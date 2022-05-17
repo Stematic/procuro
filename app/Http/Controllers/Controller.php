@@ -5,17 +5,17 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use F9Web\ApiResponseHelpers;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Routing\Controller as BaseController;
-use ReflectionClass;
+
+use function assert;
+use function is_subclass_of;
 
 class Controller extends BaseController
 {
@@ -40,7 +40,10 @@ class Controller extends BaseController
     /**
      * Responds with a paginated resource collection based on the given records.
      */
-    protected function respondWithPaginatedResourceCollection(LengthAwarePaginator $records, string $resource): JsonResponse
+    protected function respondWithPaginatedResourceCollection(
+        LengthAwarePaginator $records,
+        string $resource,
+    ): JsonResponse
     {
         assert(is_subclass_of($resource, JsonResource::class));
 

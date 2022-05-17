@@ -16,6 +16,11 @@ use Illuminate\Pipeline\Pipeline;
 
 class ServerConfigBuilder implements ServerConfigBuilderContract
 {
+    /**
+     * An array of pipes to use when building the configuration files.
+     *
+     * @var array<class-string>
+     */
     protected array $pipes = [
         Acl::class,
         Backend::class,

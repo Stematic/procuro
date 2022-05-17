@@ -9,6 +9,8 @@ use App\Concerns\RetrievesStubFiles;
 use App\Exceptions\InvalidStub;
 use Illuminate\Support\Carbon;
 
+use function preg_replace;
+
 class ServerConfigGenerator
 {
     use ReplacesConfigVariables;
@@ -20,6 +22,8 @@ class ServerConfigGenerator
 
     /**
      * Generates an evaluated stub file.
+     *
+     * @param array<string, mixed> $data
      *
      * @throws InvalidStub
      */

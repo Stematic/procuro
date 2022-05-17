@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -11,6 +13,7 @@ use Illuminate\Support\Str;
 /**
  * @property-read int $id
  * @property-read string $backend
+ *
  * @property string $domain
  * @property string $route
  * @property int $port

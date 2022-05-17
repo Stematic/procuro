@@ -13,6 +13,9 @@ use Illuminate\Validation\Rule;
  */
 class DomainRequest extends FormRequest
 {
+    /**
+     * @return string[]
+     */
     public function rules(): array
     {
         return [
