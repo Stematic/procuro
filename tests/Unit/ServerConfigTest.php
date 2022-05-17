@@ -83,6 +83,8 @@ class ServerConfigTest extends TestCase
             'hostname' => 'stematic',
         ]);
 
+        assert($server instanceof Server);
+
         Domain::factory()->create([
             'server_id' => $server,
             'domain' => 'stematic.co.uk',

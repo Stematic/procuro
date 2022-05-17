@@ -25,6 +25,8 @@ class ServerTest extends TestCase
     {
         $server = Server::factory()->has(Domain::factory()->count(5))->create();
 
+        assert($server instanceof Server);
+
         $this->assertCount(5, $server->domains);
     }
 }

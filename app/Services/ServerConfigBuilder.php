@@ -30,7 +30,7 @@ class ServerConfigBuilder implements ServerConfigBuilderContract
         Result::class,
     ];
 
-    protected function __construct(protected Server $server)
+    final protected function __construct(protected Server $server)
     {}
 
     public static function make(Server $server): static
@@ -50,6 +50,6 @@ class ServerConfigBuilder implements ServerConfigBuilderContract
 
     public function publish(): bool
     {
-        // TODO: Implement publish() method.
+        return false;
     }
 }

@@ -17,7 +17,7 @@ abstract class Domain extends Step
      */
     public function handle(ServerConfigResult $result, Closure $next): mixed
     {
-        $items = $result->server()->domains->map(function (DomainModel $domain) use ($result) {
+        $items = $result->server()->domains->map(function (mixed $domain) use ($result) {
             return $this->generator->generate([... $result->data(), ... $this->map($domain)]);
         });
 

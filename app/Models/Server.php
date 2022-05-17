@@ -12,6 +12,7 @@ use Illuminate\Support\Carbon;
 
 /**
  * @property-read int $id
+ * @property-read bool $exists
  *
  * @property string $name
  * @property string $hostname

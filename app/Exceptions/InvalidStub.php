@@ -8,13 +8,13 @@ use Exception;
 
 use function sprintf;
 
-class InvalidStub extends Exception
+final class InvalidStub extends Exception
 {
     /**
      * Creates a new exception from the provided file path.
      */
-    public static function make(string $path): static
+    public static function make(string $path): self
     {
-        return new static(sprintf('Stub file "%s" does not exist!', $path));
+        return new self(sprintf('Stub file "%s" does not exist!', $path));
     }
 }
