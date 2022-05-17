@@ -1,0 +1,2 @@
+    acl {{backend}}-acl hdr(host) -i {{name}} www.{{name}}
+    use_backend {{backend}}-be if {{backend}}-acl

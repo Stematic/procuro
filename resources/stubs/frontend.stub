@@ -1,0 +1,14 @@
+frontend main
+    bind :443 ssl crt /etc/ssl/letsencrypt
+    bind :80
+
+    # HSTS (15768000 seconds = 6 months)
+    http-response set-header Strict-Transport-Security max-age=15768000
+
+    acl letsencrypt-acl path_beg /.well-known/acme-challenge/
+    use_backend letsencrypt-be if letsencrypt-acl
+
+    redirect scheme https code 301 if !{ ssl_fc } !letsencrypt-acl
+
+{{acls}}
+

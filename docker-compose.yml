@@ -1,0 +1,68 @@
+version: '3.8'
+services:
+    app:
+        build:
+            args:
+                user: procuro
+                uid: 1000
+            context: ./.docker/php
+            dockerfile: Dockerfile
+        image: procuro
+        container_name: procuro
+        restart: unless-stopped
+        working_dir: /var/www
+        volumes:
+            - ./:/var/www
+        networks:
+            - procuro
+    nginx:
+        image: nginx:latest
+        container_name: procuro-nginx
+        restart: unless-stopped
+        hostname: procuro.test
+        environment:
+            - VIRTUAL_HOST=procuro.test
+        ports:
+            - "8001:80"
+        volumes:
+            - ./:/var/www
+            - ./.docker/nginx/config/:/etc/nginx/config
+            - ./.docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+            - ./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+        networks:
+            - procuro
+    db:
+        image: mysql:latest
+        container_name: procuro-db
+        restart: unless-stopped
+        environment:
+            MYSQL_DATABASE: procuro
+            MYSQL_ROOT_PASSWORD: procuro
+            MYSQL_PASSWORD: procuro
+            MYSQL_USER: procuro
+            SERVICE_TAGS: dev
+            SERVICE_NAME: mysql
+        volumes:
+            - ./.docker/mysql:/docker-entrypoint-initdb.d
+            - procuro-mysql:/var/lib/mysql
+        networks:
+            - procuro
+    cache:
+        image: redis:alpine
+        container_name: procuro-cache
+        restart: unless-stopped
+        ports:
+            - '63800:6379'
+        command: redis-server --save 20 1 --loglevel warning
+        volumes:
+            - procuro-redis:/data
+        networks:
+            - procuro
+networks:
+    procuro:
+        driver: bridge
+volumes:
+    procuro-redis:
+        driver: local
+    procuro-mysql:
+        driver: local
