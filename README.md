@@ -1,6 +1,16 @@
 # Procuro
 
-# Commands
+An api interface for HAProxy configuration generation for multiple servers and domains.
+
+* Handles routing between internal hosts (useful where multiple webservers are running across different machines).
+* Handles the generation of a Letsencrypt certificate for those domains.
+* Supports custom certificates.
+
+> !! This package is still under development !!
+
+# Commands (after generation).
+
+> These will be moved into an artisan command which handles this through the use of the Laravel queue whenever a server or domain is updated.
 
 Retrieve an SSL cert if certbot is active.
 
