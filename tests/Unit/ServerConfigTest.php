@@ -78,6 +78,39 @@ class ServerConfigTest extends TestCase
 
     public function testThatAFullServerConfigurationFileCanBeGenerated(): void
     {
+        $this->setGenericDate();
+
+        $server = $this->makeServer();
+
+        $builder = ServerConfigBuilder::make($server);
+
+        $contents = $builder->build();
+
+        $valid = file_get_contents(__DIR__ . '/../resources/full.valid.stub');
+
+        $this->assertEquals($valid, $contents);
+    }
+
+    public function testThatAFullServerConfigurationFileCanBePublished(): void
+    {
+        $this->setGenericDate();
+
+        $server = $this->makeServer();
+
+        $builder = ServerConfigBuilder::make($server);
+
+        $result = $builder->publish();
+
+        $this->assertFalse($result);
+    }
+
+    protected function setGenericDate(): void
+    {
+        Carbon::setTestNow(Carbon::now()->year(2022)->month(01)->day(01)->startOfDay());
+    }
+
+    protected function makeServer(): Server
+    {
         $server = Server::factory()->create([
             'name' => 'Stematic',
             'hostname' => 'stematic',
@@ -92,15 +125,7 @@ class ServerConfigTest extends TestCase
             'port' => 1750,
         ]);
 
-        Carbon::setTestNow(Carbon::now()->year(2022)->month(01)->day(01)->startOfDay());
-
-        $builder = ServerConfigBuilder::make($server);
-
-        $contents = $builder->build();
-
-        $valid = file_get_contents(__DIR__ . '/../resources/full.valid.stub');
-
-        $this->assertEquals($valid, $contents);
+        return $server;
     }
 
     /**
